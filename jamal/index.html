@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smooth Slideshow with Arrows</title>
+<title>Responsive Slideshow</title>
 <style>
   body { margin: 0; font-family: Arial, sans-serif; }
-  #slideshow { position: relative; width: 1280px; height: 832px; margin: auto; overflow: hidden; }
-  #slideshow img { position: absolute; width: 100%; height: 100%; transition: opacity 1s ease-in-out, transform 1s ease-in-out; opacity: 0; }
+  #slideshow { position: relative; width: 100%; padding-top: 64.75%; /* 832/1280 = 0.65 */ background-color: #f0f0f0; overflow: hidden; }
+  #slideshow img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease-in-out, transform 1s ease-in-out; opacity: 0; }
   #slideshow img.active { opacity: 1; }
-  .prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background-color: #f0f0f0; border: none; padding: 20px; cursor: pointer; border-radius: 50%; opacity: 0.8; }
-  .prev { left: 10px; }
-  .next { right: 10px; }
+  .prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background-color: #f0f0f0; border: none; padding: 1.5vw; cursor: pointer; border-radius: 50%; opacity: 0.5; font-size: 2vw; }
+  .prev:hover, .next:hover { opacity: 1; }
+  .prev { left: 1vw; }
+  .next { right: 1vw; }
 </style>
 </head>
 <body>
@@ -19,7 +20,13 @@
 <div id="slideshow">
   <img src="1.png" alt="Slide 1" class="active">
   <img src="2.png" alt="Slide 2">
-  <!-- ...other images... -->
+  <img src="3.png" alt="Slide 3">
+  <img src="4.png" alt="Slide 4">
+  <img src="5.png" alt="Slide 5">
+  <img src="6.png" alt="Slide 6">
+  <img src="7.png" alt="Slide 7">
+  <img src="8.png" alt="Slide 8">
+  <img src="9.png" alt="Slide 9">
   <img src="10.png" alt="Slide 10">
   <button class="prev" onclick="prevSlide()">❮</button>
   <button class="next" onclick="nextSlide()">❯</button>
