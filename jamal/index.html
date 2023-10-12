@@ -2,56 +2,88 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Slideshow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simple Slideshow</title>
 <style>
-  body { margin: 0; font-family: Arial, sans-serif; }
-  #slideshow { position: relative; width: 100%; padding-top: 56.25%; /* 16:9 Aspect Ratio */ margin: auto; background-color: #f0f0f0; overflow: hidden; }
-  #slideshow img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease-in-out; opacity: 0; }
-  #slideshow img.active { opacity: 1; }
-  .prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background-color: #f0f0f0; border: none; padding: 1vw; cursor: pointer; border-radius: 50%; opacity: 0.5; font-size: 2vw; }
-  .prev:hover, .next:hover { opacity: 1; }
-  .prev { left: -1.5vw; }
-  .next { right: -1.5vw; }
+  #slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .slide {
+    display: none;
+  }
+
+  .slide img {
+    width: 100%; /* Ensure responsiveness */
+    height: auto;
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
 </style>
 </head>
 <body>
 
-<div id="slideshow">
-  <img src="1.png" alt="Slide 1" class="active">
-  <img src="2.png" alt="Slide 2">
-  <img src="3.png" alt="Slide 3">
-  <img src="4.png" alt="Slide 4">
-  <img src="5.png" alt="Slide 5">
-  <img src="6.png" alt="Slide 6">
-  <img src="7.png" alt="Slide 7">
-  <img src="8.png" alt="Slide 8">
-  <img src="9.png" alt="Slide 9">
-  <img src="10.png" alt="Slide 10">
-  <button class="prev" onclick="prevSlide()">❮</button>
-  <button class="next" onclick="nextSlide()">❯</button>
+<div id="slideshow-container">
+    <div class="slide fade" style="display: block;">
+        <img src="1.png" alt="1">
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
 
 <script>
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('#slideshow img');
-  
-  function showSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    slides[index].classList.add('active');
-    currentSlide = index;
-  }
-  
-  function nextSlide() {
-    let nextIndex = (currentSlide + 1) % slides.length;
-    showSlide(nextIndex);
-  }
-  
-  function prevSlide() {
-    let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(prevIndex);
-  }
-</script>
+  var slideIndex = 1;
+  var slides = document.getElementsByClassName("slide");
+  var totalSlides = 10;
 
+  function plusSlides(n) {
+      showSlides(slideIndex += n);
+  }
+
+  function showSlides(n) {
+      var i;
+      if (n > totalSlides) {slideIndex = 1}
+      if (n < 1) {slideIndex = totalSlides}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";  
+      }
+      slides[slideIndex-1].style.display = "block";
+  }
+
+  function loadSlides() {
+      for (var i = 2; i <= totalSlides; i++) {
+          var slideDiv = document.createElement('div');
+          slideDiv.className = 'slide fade';
+          slideDiv.innerHTML = '<img src="' + i + '.png" alt="' + i + '">';
+          document.getElementById('slideshow-container').appendChild(slideDiv);
+      }
+  }
+
+  window.onload = loadSlides;
+</script>
 </body>
 </html>
